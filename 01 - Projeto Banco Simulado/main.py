@@ -54,20 +54,21 @@ def criar_conta():
                     print(f"Senha: {senha}")
                     confirmar = input("Confirme sua senha: ")
 
-                    while (True):
-                        if confirmar != senha:
-                            confirmar = input("Senhas diferentes, confirme novamente: ")
-                        else:
-                            print("Senha confirmada!")
-                            break
+                    while confirmar != senha:
+                        confirmar = input("Senhas diferentes! Digite novamente: ")
+                        
+                    print("Senha confirmada!")
+                    break
+                        
                     
-                return {
-                    "nome": nome,
-                    "data_nascimento": data_formatada,
-                    "cpf": cpf_formatado,
-                    "senha": senha,
-                    "saldo": 0.0  # já inicia com saldo zerado
-                }               
+                    
+            return {
+                "nome": nome,
+                "data_nascimento": data_formatada,
+                "cpf": cpf_formatado,
+                "senha": senha,
+                "saldo": 0.0  # já inicia com saldo zerado
+            }               
 
 while True:
     print("Selecione a opção que mais se encaixe com sua vontade: ")
@@ -82,8 +83,9 @@ while True:
     if opcao == 1:
         dados = criar_conta() #Guarda a criação da conta dentro da variável dados
         contas[dados["cpf"]] = dados #Aqui ele chama o Dicionário criado >contas< pega os dados e utiliza >cpf< como chave para buscar contas
-        print(f"Conta criada para {dados["nome"]}!")
+        print(f"Conta criada para {dados["nome"]}!") #Aqui ele pesquisa dentro de >dados< o nome 
     
+        
     break
 
 
