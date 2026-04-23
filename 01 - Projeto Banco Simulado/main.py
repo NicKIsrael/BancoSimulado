@@ -68,8 +68,45 @@ def criar_conta():
                 "cpf": cpf_formatado,
                 "senha": senha,
                 "saldo": 0.0  # já inicia com saldo zerado
-            }               
+            }
+        
+#Função Depositar
+def depositar():
+    while True:
+        
+        ##Validação do CPF
+        buscar_cpf_deposito = input("Digite seu CPF para entrar em sua conta: (11 dígitos) ")
+        if not buscar_cpf_deposito.isdigit():
+            print("O CPF deve ser composto apenas por digitos")
+        elif len(buscar_cpf_deposito) != 11:
+            print("O CPF deve conter 11 digitos!")
+        else:
+            ##Aqui foi preciso fazer uma nova variável para buscar_cpf, isso porque o CPF guardado anteriormente foi guardado formatado
+            buscar_cpf_formatado = f"{buscar_cpf_deposito[:3]}.{buscar_cpf_deposito[3:6]}.{buscar_cpf_deposito[6:9]}-{buscar_cpf_deposito[9:]}"
+            if buscar_cpf_formatado in contas:
+                conta_atual = contas[buscar_cpf_formatado]
+                print(f"CPF Encontrado! Bem-vindo {conta_atual["nome"]}!")
+                
+                print(f"O saldo atual na sua conta é de: {conta_atual["saldo"]}")
+                
+                ##Sistema prático de depósito:
+                while True:
+                    deposito = float(input("Digite o valor a ser depositado: "))
+                    print(f"Você depositou: {deposito}")
+                    conta_atual["saldo"] += deposito
+                    resposta = input("Deseja realizar um novo depósito?")
+                    if resposta == "S":
+                        print("Realizando outro depósito...")
+                    elif resposta == "N":
+                        print("Finalizando...")
+                        print(f"Seu novo saldo é: {conta_atual["saldo"]}")
+                        break
+            else:
+                print("CPF inexistente")      
+        break
+    
 
+               
 while True:
     print("Selecione a opção que mais se encaixe com sua vontade: ")
 
@@ -79,14 +116,11 @@ while True:
     print("04 - Ver saldo")
 
 
-    opcao = int(input("Digite a opção(01 a 04): "))
-    if opcao == 1:
+    opcao = (input("Digite a opção(01 a 04): "))
+    if opcao == "1":
         dados = criar_conta() #Guarda a criação da conta dentro da variável dados
         contas[dados["cpf"]] = dados #Aqui ele chama o Dicionário criado >contas< pega os dados e utiliza >cpf< como chave para buscar contas
-        print(f"Conta criada para {dados["nome"]}!") #Aqui ele pesquisa dentro de >dados< o nome 
+        print(f"Conta criada para {dados["nome"]}!") #Aqui ele pesquisa dentro de >dados< o nome
     
-        
-    break
-
-
-        
+    elif opcao == "2":
+        depositar()
