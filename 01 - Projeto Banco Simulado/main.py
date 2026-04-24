@@ -105,8 +105,9 @@ def depositar():
                 print("CPF inexistente")      
         break
 
-
 def sacar():
+    
+    
     while True:
         # Validação do CPF
         buscar_cpf_saque = input("Digite seu CPF: (11 Digitos)")
@@ -152,8 +153,22 @@ def sacar():
                 elif continuar == "N":
                     print("Encerrando...")
                     break
-                
-        
+def verSaldo():
+    while True:
+        buscar_cpf_saldo = input("Digite seu CPF: (11 Digitos)")
+
+        if not buscar_cpf_saldo.isdigit():
+            print("O CPF deve ser composto apenas por digitos!")
+        elif len(buscar_cpf_saldo) != 11:
+            print("O CPF deve ter no mínimo 11 dígitos!")
+        else:
+            buscar_cpf_formatado = f"{buscar_cpf_saldo[:3]}.{buscar_cpf_saldo[3:6]}.{buscar_cpf_saldo[6:9]}-{buscar_cpf_saldo[9:]}"
+            
+            conta_atual = contas[buscar_cpf_formatado]
+            
+            print(f"Bem vindo {conta_atual["nome"]}!")
+            print(f"O saldo disponível na sua conta é R${conta_atual["saldo"]}")
+        break
 
 
 while True:
@@ -176,3 +191,6 @@ while True:
         
     elif opcao == "3":
         sacar()
+
+    elif opcao == "4":
+        verSaldo()
