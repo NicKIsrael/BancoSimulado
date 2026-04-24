@@ -174,13 +174,14 @@ def verSaldo():
 while True:
     print("Selecione a opção que mais se encaixe com sua vontade: ")
 
-    print("01 - Criar Conta")
-    print("02 - Depositar")
-    print("03 - Sacar")
-    print("04 - Ver saldo")
+    print("1 - Criar Conta")
+    print("2 - Depositar")
+    print("3 - Sacar")
+    print("4 - Ver saldo")
+    print("5 - Encerrar Sistema")
 
 
-    opcao = (input("Digite a opção(01 a 04): "))
+    opcao = (input("Digite a opção(1 a 5): "))
     if opcao == "1":
         dados = criar_conta() #Guarda a criação da conta dentro da variável dados
         contas[dados["cpf"]] = dados #Aqui ele chama o Dicionário criado >contas< pega os dados e utiliza >cpf< como chave para buscar contas
@@ -194,3 +195,10 @@ while True:
 
     elif opcao == "4":
         verSaldo()
+        
+    elif opcao == "5":
+        print("Encerrando sistema! Até breve!")
+        break
+    
+    else:
+        print("Opção Inválida. Digite outro número!")
