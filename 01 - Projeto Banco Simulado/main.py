@@ -2,7 +2,7 @@ print("Bem-vindo ao Banco Central!")
 
 contas = {}
 
-#Função Criar Conta
+# Função Criar Conta
 def criar_conta():
             while (True):
                 #NOME
@@ -69,8 +69,8 @@ def criar_conta():
                 "senha": senha,
                 "saldo": 0.0  # já inicia com saldo zerado
             }
-        
-#Função Depositar
+
+# Função Depositar
 def depositar():
     while True:
         
@@ -94,7 +94,7 @@ def depositar():
                     deposito = float(input("Digite o valor a ser depositado: "))
                     print(f"Você depositou: {deposito}")
                     conta_atual["saldo"] += deposito
-                    resposta = input("Deseja realizar um novo depósito?")
+                    resposta = input("Deseja realizar um novo depósito?").upper()
                     if resposta == "S":
                         print("Realizando outro depósito...")
                     elif resposta == "N":
@@ -104,55 +104,58 @@ def depositar():
             else:
                 print("CPF inexistente")      
         break
-    
-    
+
+
 def sacar():
     while True:
-        #Validação do CPF
+        # Validação do CPF
         buscar_cpf_saque = input("Digite seu CPF: (11 Digitos)")
-        
+
         if not buscar_cpf_saque.isdigit():
             print("O CPF deve ser composto apenas por digitos!")
         elif len(buscar_cpf_saque) != 11:
             print("O CPF deve ter no mínimo 11 dígitos!")
         else:
             buscar_cpf_formatado = f"{buscar_cpf_saque[:3]}.{buscar_cpf_saque[3:6]}.{buscar_cpf_saque[6:9]}-{buscar_cpf_saque[9:]}"
-        
-        #Busca do CPF no dicionário contas
+
+            # Busca do CPF no dicionário contas
             if buscar_cpf_formatado in contas:
-                #Aqui foi feito o mesmo processo do depósito, foi necessário criar uma variável temporária para modificar a conta
-                #selecionada e não uma existente.
+                # Aqui foi feito o mesmo processo do depósito, foi necessário criar uma variável temporária para modificar a conta
+                # selecionada e não uma existente.
                 conta_atual = contas[buscar_cpf_formatado]
                 print(f"CPF encontrado! Bem-vindo {conta_atual["nome"]}!")
                 print(f"Seu saldo atual é: {conta_atual["saldo"]}")
-                
-                #Lógica de todo saque
+
+                # Lógica de todo saque
+                # Meu erro estava sendo o fato de eu diminuir primeiro na conta antes de verificar se eu tenho o valor disponível
                 while True:
                     saque = float(input("Digite o valor que você quer sacar: "))
-                    try:
-                        conta_atual["saldo"] -= saque
-                    except:
-                        continue
-                    if saque > {conta_atual["saldo"]}:
-                        print("Não é possível realizar um saque maior do que o disponível na conta!")
-                        
-                        cancelar = input("Deseja cancelar a operação?: (S/N)").upper
+                    if saque > conta_atual["saldo"]:
+                        print("Não é possível sacar um valor maior que o disponível na conta!")
+                        cancelar = input("Deseja cancelar a operação? (S/N)").upper()
                         if cancelar == "S":
-                            print("Encerrando...")
+                            print("Cancelando...")
                             break
-                        else:
-                            print("Reiniciando...")
-                            
-                            
-                        
-                        
+                        elif cancelar == "N":
+                            print("Reiniciando Operação...")
+                    else:
+                        conta_atual["saldo"] -= saque
+                        print("Operação realizada com sucesso!")
+                        print(f"Você realizou um saque de: R${saque}")
+                        print(f"Seu saldo agora é de {conta_atual["saldo"]}")
+                        break
                     
-                    
-        break
+            else:
+                continuar = input("CPF não encontrado! Deseja tentar novamente? (S/N)").upper()
+                if continuar == "S":
+                    print("Reiniciando...")
+                elif continuar == "N":
+                    print("Encerrando...")
+                    break
                 
-                
-            
-             
+        
+
+
 while True:
     print("Selecione a opção que mais se encaixe com sua vontade: ")
 
