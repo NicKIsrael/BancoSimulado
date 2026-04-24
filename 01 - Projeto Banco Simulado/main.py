@@ -105,8 +105,54 @@ def depositar():
                 print("CPF inexistente")      
         break
     
-
-               
+    
+def sacar():
+    while True:
+        #Validação do CPF
+        buscar_cpf_saque = input("Digite seu CPF: (11 Digitos)")
+        
+        if not buscar_cpf_saque.isdigit():
+            print("O CPF deve ser composto apenas por digitos!")
+        elif len(buscar_cpf_saque) != 11:
+            print("O CPF deve ter no mínimo 11 dígitos!")
+        else:
+            buscar_cpf_formatado = f"{buscar_cpf_saque[:3]}.{buscar_cpf_saque[3:6]}.{buscar_cpf_saque[6:9]}-{buscar_cpf_saque[9:]}"
+        
+        #Busca do CPF no dicionário contas
+            if buscar_cpf_formatado in contas:
+                #Aqui foi feito o mesmo processo do depósito, foi necessário criar uma variável temporária para modificar a conta
+                #selecionada e não uma existente.
+                conta_atual = contas[buscar_cpf_formatado]
+                print(f"CPF encontrado! Bem-vindo {conta_atual["nome"]}!")
+                print(f"Seu saldo atual é: {conta_atual["saldo"]}")
+                
+                #Lógica de todo saque
+                while True:
+                    saque = float(input("Digite o valor que você quer sacar: "))
+                    try:
+                        conta_atual["saldo"] -= saque
+                    except:
+                        continue
+                    if saque > {conta_atual["saldo"]}:
+                        print("Não é possível realizar um saque maior do que o disponível na conta!")
+                        
+                        cancelar = input("Deseja cancelar a operação?: (S/N)").upper
+                        if cancelar == "S":
+                            print("Encerrando...")
+                            break
+                        else:
+                            print("Reiniciando...")
+                            
+                            
+                        
+                        
+                    
+                    
+        break
+                
+                
+            
+             
 while True:
     print("Selecione a opção que mais se encaixe com sua vontade: ")
 
@@ -124,3 +170,6 @@ while True:
     
     elif opcao == "2":
         depositar()
+        
+    elif opcao == "3":
+        sacar()
